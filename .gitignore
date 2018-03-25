@@ -1,3 +1,25 @@
 /node_modules
 
+/dist
+/dist-server
+/tmp
+/out-tsc
+
 /.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+.DS_Store
+Thumbs.db
