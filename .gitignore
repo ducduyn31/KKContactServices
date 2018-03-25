@@ -7,6 +7,10 @@
 
 /.idea/*
 
+.idea/
+
+**/.idea/
+
 /.idea
 .project
 .classpath
