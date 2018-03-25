@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 
+/.idea/*
+
 /.idea
 .project
 .classpath
