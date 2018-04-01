@@ -45,10 +45,12 @@ mongoose.connect('mongodb://localhost/kosmeticskingdom');
 import index from './routes/index';
 import contact from './routes/contact';
 import notice from './routes/notice';
+import auth from './routes/login';
 
 app.use('/', index);
 app.use('/contact', contact);
 app.use('/notice', notice);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

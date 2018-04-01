@@ -1,5 +1,6 @@
 import express from 'express';
 import {ObjectId} from 'mongoose/lib/types';
+import {jwthandler} from './JWThandler';
 
 import {NoticeModel} from '../models/contact.model';
 
@@ -31,7 +32,7 @@ router.get('/getContent/:id', async (req, res) => {
     })
 });
 
-router.post('/JjcUPS2u5YVG6eLaH2CMNWnf', async (req, res) => {
+router.post('', jwthandler ,async (req, res) => {
 
     let subject = req.body.subject;
     let author = req.body.author;
@@ -52,7 +53,6 @@ router.post('/JjcUPS2u5YVG6eLaH2CMNWnf', async (req, res) => {
            rawContent
        }, (err, doc) => {
            if(err) console.log(err);
-           console.log(doc);
            res.json({
                success: true,
                content: doc

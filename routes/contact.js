@@ -1,5 +1,6 @@
 import express from 'express';
 import multer from 'multer';
+import {jwthandler} from "./JWThandler";
 
 import {CustomerSupportModel} from '../models/support-request.model';
 import {AttachmentModel} from '../models/attachment.model';
@@ -62,6 +63,13 @@ router.post('', upload.single('attachment') , async (req, res) => {
             description
         })
     }
+});
+
+router.get('/', jwthandler, (req, res) => {
+    CustomerSupportModel.find({}).populate({
+        path: 'attachment',
+        model: 'Attachment'
+    }).then(docs => res.json(docs)).catch(err => res.json(err));
 });
 
 export default router;
