@@ -45,7 +45,7 @@ mongoose.connect('mongodb://localhost/kosmeticskingdom');
 import index from './routes/index';
 import contact from './routes/contact';
 import notice from './routes/notice';
-import auth from './routes/login';
+import auth from './routes/auth';
 
 app.use('/', index);
 app.use('/contact', contact);

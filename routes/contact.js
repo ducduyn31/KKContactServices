@@ -1,6 +1,8 @@
 import express from 'express';
 import multer from 'multer';
 import {jwthandler} from "./JWThandler";
+import fs from 'fs';
+import path from 'path';
 
 import {CustomerSupportModel} from '../models/support-request.model';
 import {AttachmentModel} from '../models/attachment.model';
@@ -39,7 +41,8 @@ router.post('', upload.single('attachment') , async (req, res) => {
                     description,
                     tel,
                     company,
-                    attachment: att._id
+                    attachment: att._id,
+                    read: false
                 }
             );
         } else {
@@ -49,7 +52,8 @@ router.post('', upload.single('attachment') , async (req, res) => {
                     title,
                     description,
                     tel,
-                    company
+                    company,
+                    read: false
                 }
             );
         }
@@ -70,6 +74,23 @@ router.get('/', jwthandler, (req, res) => {
         path: 'attachment',
         model: 'Attachment'
     }).then(docs => res.json(docs)).catch(err => res.json(err));
+});
+
+router.delete('/', jwthandler, (req, res) => {
+    let id = req.query.id;
+    CustomerSupportModel.findByIdAndRemove(id).then(doc => {
+        if (doc.attachment && doc.attachment[0]) {
+            doc.attachment.forEach(attId => {
+                AttachmentModel.findByIdAndRemove(attId).then(async _att => {
+                    await fs.unlink(path.join(__dirname, '../uploads/attachments', _att.filename), (err) => {
+                        if (err) console.log(err);
+                    });
+                });
+            })
+        }
+
+        res.json({success: true, deleted_content: doc});
+    }).catch(err => res.json({success: false, message: err}));
 });
 
 export default router;

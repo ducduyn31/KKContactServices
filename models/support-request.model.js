@@ -20,8 +20,8 @@ const MongooseModel = mongoose.model('CustomerSupport', mongoose.Schema({
     description: {type: String},
     tel: {type: String, match: /[0-9]+/},
     company: {type: String},
-    attachment: [{type: Schema.Types.ObjectId, ref: 'Attachment'}]
-
+    attachment: [{type: Schema.Types.ObjectId, ref: 'Attachment'}],
+    read: {type: Boolean}
 }));
 
 export {CustomerSupport, MongooseModel as CustomerSupportModel};

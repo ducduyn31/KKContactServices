@@ -28,7 +28,20 @@ router.get('', async (req, res) => {
 router.get('/getContent/:id', async (req, res) => {
     let content = NoticeModel.findOne({_id: req.params.id});
     content.exec((err, doc) => {
+        let view = doc.view;
+        doc.view = ++view;
+        doc.save();
         res.json(doc.rawContent);
+    })
+});
+
+router.get('/getNoticeAsAdmin/:id', jwthandler, async (req, res) => {
+    let content = NoticeModel.findOne({_id: req.params.id});
+    content.exec((err, doc) => {
+        let view = doc.view;
+        doc.view = ++view;
+        doc.save();
+        res.json(doc);
     })
 });
 
@@ -63,6 +76,12 @@ router.post('', jwthandler ,async (req, res) => {
             error: 'Notice Exists'
         })
     }
+});
+
+router.put('', jwthandler, (req, res) => {
+    let notice = req.body.notice;
+
+    NoticeModel.findByIdAndUpdate(notice._id, notice).then(doc => res.json({success: true, previous: doc})).catch(err => res.json(err));
 });
 
 export default router;
