@@ -40,7 +40,9 @@ app.use(cors({
     }
 }));
 
-mongoose.connect('mongodb://localhost/kosmeticskingdom');
+import {MONGO_DB} from './config/setup.js'
+
+mongoose.connect(MONGO_DB);
 
 import index from './routes/index';
 import contact from './routes/contact';
