@@ -12,6 +12,9 @@ import mongoose from 'mongoose';
 const app = express();
 const debug = Debug('kk-contact-service:app');
 
+//Set Enviroment
+//app.set('env', 'production');
+
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

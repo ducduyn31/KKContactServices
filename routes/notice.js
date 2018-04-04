@@ -73,6 +73,7 @@ router.post('', jwthandler ,async (req, res) => {
        });
     } else {
         res.json({
+            success: false,
             error: 'Notice Exists'
         })
     }
