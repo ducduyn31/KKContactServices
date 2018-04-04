@@ -84,4 +84,12 @@ router.put('', jwthandler, (req, res) => {
     NoticeModel.findByIdAndUpdate(notice._id, notice).then(doc => res.json({success: true, previous: doc})).catch(err => res.json(err));
 });
 
+router.delete('', jwthandler, (req, res) => {
+   let id = req.query.notice;
+
+   NoticeModel.findByIdAndRemove(id).then(doc => {
+       res.json({success: true, removed_notice: doc});
+   }).catch(err => res.json(err));
+});
+
 export default router;
