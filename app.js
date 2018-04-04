@@ -17,26 +17,30 @@ const debug = Debug('kk-contact-service:app');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 }));
 
 app.use(cookieParser());
 app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true,
-  sourceMap: true
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    indentedSyntax: true,
+    sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors({
     origin: (origin, cb) => {
-        /*if(!origin) {return cb(new Error('Require Origin'), false);}
-        if(app.get('env') === 'development' && origin === 'http://localhost:4200') {
+        if (!origin) {
+            return cb(new Error('Require Origin'), false);
+        }
+        if (app.get('env') === 'development' && origin === 'http://localhost:4200') {
+            return cb(null, true);
+        } else if (app.get('env') === 'production' && (origin === 'http://kosmetics.kr' || origin === 'http://admin.kosmetics.kr')) {
             return cb(null, true);
         }
-        //return cb(new Error('Not whitelisted!'), false);*/
-        return cb(null, true);
+        return cb(new Error('Not whitelisted!'), false);
+        //return cb(null, true);
     }
 }));
 
@@ -56,26 +60,26 @@ app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 /* eslint no-unused-vars: 0 */
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  // render the error page
-  res.status(err.status || 500);
-  res.json(err);
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // render the error page
+    res.status(err.status || 500);
+    res.json(err);
 });
 
 // Handle uncaughtException
 process.on('uncaughtException', (err) => {
-  debug('Caught exception: %j', err);
-  process.exit(1);
+    debug('Caught exception: %j', err);
+    process.exit(1);
 });
 
 export default app;
