@@ -30,20 +30,20 @@ app.use(sassMiddleware({
     indentedSyntax: true,
     sourceMap: true
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use(cors({
     origin: (origin, cb) => {
         if (!origin) {
             return cb(new Error('Require Origin'), false);
         }
-        if (app.get('env') === 'development' && origin === 'http://localhost:4200') {
+        if (app.get('env') === 'development' && (origin === 'http://localhost:4200' || origin === 'http://localhost:3000')) {
             return cb(null, true);
-        } else if (app.get('env') === 'production' && (origin === 'http://kosmetics.kr' || origin === 'http://admin.kosmetics.kr')) {
+        } else if (app.get('env') === 'production' && (origin === 'http://kosmetics.kr' || origin === 'http://admin.kosmetics.kr' || origin === 'http://api.kosmetics.kr')) {
             return cb(null, true);
-        }
+        } else
         return cb(new Error('Not whitelisted!'), false);
-        //return cb(null, true);
+        // return cb(null, true);
     }
 }));
 
