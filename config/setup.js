@@ -5,6 +5,6 @@ const defaultAdmin = {
     password: 'seoulgroupkorea123'
 };
 
-const mongoDBURL = 'mongodb://kkadmin:seoulgroupkorea123@localhost/kosmeticskingdom';
+const mongoDBURL = 'mongodb://localhost/kosmeticskingdom';
 
 export {secret as SECRET, defaultAdmin as DefaultAdmin, mongoDBURL as MONGO_DB};
